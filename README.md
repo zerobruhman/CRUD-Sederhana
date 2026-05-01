@@ -7,7 +7,18 @@ Membuat data dengan ``mysqli_connect()``
 
 ## Konsep yang Dipelajari
 
--  Global Variable: ``global $hasil``
+- Global Variable: ``global $hasil``
+- Return Array:
+```php
+return [
+    "error" => "",
+    "perintah" => $hasil
+];
+
+$hasil_read = Read($nama, $koneksi);
+$error = $hasil_read["error"];
+$perintah = $hasil_read["perintah"];
+```
 ## Setup Database
 
 ```sql
@@ -17,10 +28,22 @@ nama VARCHAR(100),
 umur INT
 );
 ```
+setup ``koneksi.php`` 
+```php
+$host = "localhost";
+$user = "root";
+$password = "";
+$nama_db = "belajarmysql";
 
+$koneksi = mysqli_connect($host, $user, $password, $nama_db);
+
+if (!$koneksi){
+    die("Koneksi Gagal! : " . mysqli_connect_error());
+}
+```
 ## Next
--  Menambahkan **Read, Update dan Delete**
--  Security SQL basic
+-  Menambahkan **Update dan Delete**
+-  Security SQL basic (Masih Rawan SQL injection)
 
-
-README.md nya rapih yah hahaha
+## Update Perubahab
+- Katanya ``global`` di ``function`` tidak di sarankan jadi di ganti pakai ``return``
