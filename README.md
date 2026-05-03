@@ -45,5 +45,5 @@ if (!$koneksi){
 -  Menambahkan **Update dan Delete**
 -  Security SQL basic (Masih Rawan SQL injection)
 
-## Update Perubahab
+## Update Perubahan
 - Katanya ``global`` di ``function`` tidak di sarankan jadi di ganti pakai ``return``
