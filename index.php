@@ -8,5 +8,6 @@
 <body>
     <a href="create.php">Create</a>
     <a href="read.php">Read</a>
+    <a href="update.php">Update</a>
 </body>
 </html>

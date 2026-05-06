@@ -42,7 +42,7 @@ if (!$koneksi){
 }
 ```
 ## Next
--  Menambahkan **Update dan Delete**
+-  Menambahkan **Delete**
 -  Security SQL basic (Masih Rawan SQL injection)
 
 ## Update Perubahan
