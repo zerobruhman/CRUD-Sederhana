@@ -42,8 +42,10 @@ if (!$koneksi){
 }
 ```
 ## Next
--  Menambahkan **Delete**
--  Security SQL basic (Masih Rawan SQL injection)
+-  Security SQL basic, Masih Rawan SQL injection (di next repo)
 
 ## Update Perubahan
 - Katanya ``global`` di ``function`` tidak di sarankan jadi di ganti pakai ``return``
+
+## Kekurangan
+- Masih rawan SQL injection coba di ``read.php`` dengan ketik ini ``' OR '1'='1`` maka semua table akan di perlihatkan!
