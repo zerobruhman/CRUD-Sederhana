@@ -42,7 +42,7 @@ if (!$koneksi){
 }
 ```
 ## Next
--  Security SQL basic, Masih Rawan SQL injection (di next repo)
+-  Security SQL basic menggunakan Prepared Statement, Masih Rawan SQL injection
 
 ## Update Perubahan
 - Katanya ``global`` di ``function`` tidak di sarankan jadi di ganti pakai ``return``
