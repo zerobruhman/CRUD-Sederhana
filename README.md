@@ -1,6 +1,6 @@
 # CRUD-Sederhana
 
-Create-Read-Update-Delete menggunakan PHP + MySQL
+Create-Read-Update-Delete menggunakan PHP + MySQL dengan Prepared Statement
 ## Create
 
 Membuat data dengan ``mysqli_connect()``  
@@ -19,6 +19,7 @@ $hasil_read = Read($nama, $koneksi);
 $error = $hasil_read["error"];
 $perintah = $hasil_read["perintah"];
 ```
+- Prepared Statement: mencegah SQL Injection
 ## Setup Database
 
 ```sql
@@ -41,11 +42,19 @@ if (!$koneksi){
     die("Koneksi Gagal! : " . mysqli_connect_error());
 }
 ```
-## Next
--  Security SQL basic menggunakan Prepared Statement, Masih Rawan SQL injection
-
 ## Update Perubahan
 - Katanya ``global`` di ``function`` tidak di sarankan jadi di ganti pakai ``return``
-
-## Kekurangan
-- Masih rawan SQL injection coba di ``read.php`` dengan ketik ini ``' OR '1'='1`` maka semua table akan di perlihatkan!
+- Mengganti kode Query dengan Prepared Statement
+### Sebelum:
+```php
+$hasil = mysqli_query($koneksi, "SELECT * FROM CRUD_S WHERE nama = '$trimednama'");
+```
+### Sesudah
+```php
+$pernyataan = mysqli_prepare($koneksi, "SELECT * FROM CRUD_S WHERE nama = ?");
+mysqli_stmt_bind_param($pernyataan, "s", $trimednama);
+mysqli_stmt_execute($pernyataan);
+$hasil = mysqli_stmt_get_result($pernyataan);
+```
+## Kelebihan
+- SQL injection dengan ketik ini ``' OR '1'='1`` hanya akan dianggapa data biasa

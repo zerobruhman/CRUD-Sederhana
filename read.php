@@ -11,7 +11,10 @@ function Read($nama, $koneksi){
             "error" => "Nama tolong di isi",
             "perintah" => null
         ];
-    $hasil = mysqli_query($koneksi, "SELECT * FROM CRUD_S WHERE nama = '$trimednama'");
+    $pernyataan = mysqli_prepare($koneksi, "SELECT * FROM CRUD_S WHERE nama = ?");
+    mysqli_stmt_bind_param($pernyataan, "s", $trimednama);
+    mysqli_stmt_execute($pernyataan);
+    $hasil = mysqli_stmt_get_result($pernyataan);
     return [
         "error" => "",
         "perintah" => $hasil
