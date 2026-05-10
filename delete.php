@@ -1,15 +1,17 @@
 <?php
 include "koneksi.php";
 
-$error = "";
-$perintah = null;
-
 function Read($nama, $koneksi){
     $trimednama = trim($nama);
     if ($trimednama === "")
         return "Nama tolong di isi";
-    mysqli_query($koneksi, "DELETE FROM CRUD_S WHERE nama = '$trimednama'");
-    return "Delete berhasil";
+    $pernyataan = mysqli_prepare($koneksi, "DELETE FROM CRUD_S WHERE nama = ?");
+    mysqli_stmt_bind_param($pernyataan, "s", $trimednama);
+    mysqli_stmt_execute($pernyataan);
+    if (mysqli_stmt_affected_rows($pernyataan) > 0)
+        return "Delete berhasil";
+    else
+        return "Delete gagal!";
 }
 if (isset($_POST['read'])){
     $nama = $_POST['nama'] ?? "";

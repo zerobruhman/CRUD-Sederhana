@@ -15,10 +15,18 @@ function Read($nama, $koneksi){
     mysqli_stmt_bind_param($pernyataan, "s", $trimednama);
     mysqli_stmt_execute($pernyataan);
     $hasil = mysqli_stmt_get_result($pernyataan);
-    return [
+    if (mysqli_num_rows($hasil) > 0){
+        return [
         "error" => "",
         "perintah" => $hasil
-    ];
+        ];
+    }
+    else {
+        return [
+        "error" => "Read gagal tidak $trimednama tidak ada dalam database",
+        "perintah" => null
+        ];
+    }
 }
 if (isset($_POST['read'])){
     $nama = $_POST['nama'] ?? "";

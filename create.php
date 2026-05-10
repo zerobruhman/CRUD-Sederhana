@@ -13,8 +13,19 @@ function create($namatemp, $umurtemp, $koneksitemp){
 
     $umurbersih = (int)$umurtemp;
 
-    mysqli_query($koneksitemp, "INSERT INTO CRUD_S (nama, umur) VALUES ('$trimmednama', '$umurbersih')");
-    return $hasil = "Create berhasil!";
+    $pernyataan = mysqli_prepare(
+        $koneksitemp,
+        "INSERT INTO CRUD_S (nama, umur)
+        VALUES (?, ?)"
+    );
+    mysqli_stmt_bind_param(
+        $pernyataan,
+        "si",
+        $trimmednama,
+        $umurbersih
+    );
+    mysqli_stmt_execute($pernyataan);
+    return "Create berhasil!";
 }
 if (isset($_POST['create'])){   
     $nama = $_POST['nama'] ?? "";
@@ -30,3 +41,4 @@ if (isset($_POST['create'])){
     <button name="create">Buat</button>
     <b><?php echo htmlspecialchars($hasil);?></b>
 </form>
+<a href="index.php">Back</a>

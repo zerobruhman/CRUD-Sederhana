@@ -56,5 +56,14 @@ mysqli_stmt_bind_param($pernyataan, "s", $trimednama);
 mysqli_stmt_execute($pernyataan);
 $hasil = mysqli_stmt_get_result($pernyataan);
 ```
+- Validasi hasil jika input tidak ada dalam DataBase 
+```php 
+mysqli_num_rows();
+```
+Untuk ``read.php``
+```php
+mysqli_stmt_affected_rows();
+```
+Untuk ``update.php`` & ``delete.php``
 ## Kelebihan
 - SQL injection dengan ketik ini ``' OR '1'='1`` hanya akan dianggapa data biasa

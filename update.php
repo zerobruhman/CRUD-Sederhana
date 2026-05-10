@@ -10,11 +10,23 @@ function Update($namaold, $namanew, $umurnew, $koneksi){
     if (!is_numeric($umurnew))
         return "Umur harus angka!";
 
-    mysqli_query($koneksi, "UPDATE CRUD_S SET
-    nama='$namanew',
-    umur='$umurnew'
-    WHERE nama='$namaold'");
-    return "Update berhasil";
+    $pernyataan = mysqli_prepare($koneksi, "UPDATE CRUD_S SET
+        nama=?,
+        umur=?
+        WHERE nama=?");
+
+    mysqli_stmt_bind_param(
+        $pernyataan,
+        "sis",
+        $namanew,
+        $umurnew,
+        $namaold
+    );
+    mysqli_stmt_execute($pernyataan);
+    if (mysqli_stmt_affected_rows($pernyataan) > 0)
+        return "Update Berhasil";
+    else
+        return "Update Gagal";
 }
 if (isset($_POST['update'])){
     $namaold = $_POST['namaold'] ?? "";
@@ -42,5 +54,7 @@ if (isset($_POST['update'])){
 
         <button type="submit" name="update">Update</button>
     </form>
+    <a href="index.php">Back</a>
+
 </body>
 </html>
